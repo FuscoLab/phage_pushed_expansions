@@ -1,0 +1,28 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 This folder contains the different bits of code that are required to solve the reaction-diffusion equations describing plaque growth. There are variants with uniform phage diffusion rate (UDMs) and variants with variable phage diffusion rate (VDMs), where the diffusion rate varies due to steric interactions with host cells. There are also variants where adsorption to already infected hosts does (+) and does not (-) occur.\
+\
+Each sub-folder corresponding to a given variant contains 5 files. Briefly, the files are:\
+1. Name3_Solver.m - This is the code that you should actually run to run the solver\
+2. Name3.m - Defines the system of equations to be solved\
+3. variable3bc.m - Defines boundary conditions of problem\
+4. variable3ic.m - Defines initial conditions of problem\
+5. asymptotefcn.m - Defines the function used to determine the asymptotic velocity of the expansion\
+\
+\'93Name\'94 in 1 and 2 changes depending on the model variant:\
+UDM+ = \'93ConstantD\'94\
+UDM- = \'93Jones\'94\
+VDM+ = \'93Full\'94\
+VDM- = \'93noIads\'94\
+\
+To run the solver the file Name3_Solver.m should be run. In the case of UDMs this takes 2 input arguments: \'93name\'94 being the name of the output file where the results should be saved, and \'93Ktemp\'94 being the K parameter value for which the solution should be determined. In the case of the VDMs there are 2 additional inputs: \'93Ltemp\'94 and \'93alphatemp\'94 corresponding to the lysis time and adsorption rate. This is equivalent to providing f and Kmax, assuming a fixed Bmax, but is written this way simply as a hangover from earlier iterations of the code.\
+\
+Running the code successfully should result in a output file name.mat that contains the population profiles as a function of time and space, along with the results such as the asymptotic velocity of the front etc. \
+\
+In the case where the solver fails prematurely or there are numerical instabilities or something like that the profiles should still be saved, and the velocity etc can be calculated from the profiles using the \'93Data_Fixer.mlx\'94 script that plots the profiles and velocity as a function of space/time, and allows you to define a specific range of data to use when computing the asymptotic velocity. This is slightly difficult to explain so I have included some \'93good\'94 and some \'93bad\'94 example data that you can run through the fixer to illustrate what I mean. \
+}
