@@ -7,9 +7,13 @@ Codes and Figures for "Virus-host interactions shape viral dispersal giving rise
 
 - [Abstract](#abstract)
 - [Plaque-growth PDEs](#Plaque-growth-PDEs)
-- [Stochastic simulations of heterozygosity decay](#stochastic-simulations-of-heterozygosity decay)
+- [Stochastic simulations of heterozygosity decay](#stochastic-simulations-of-heterozygosity-decay)
 
+## Abstract
 
+Reaction-diffusion waves have long been used to describe the growth and spread of populations undergoing a spatial range expansion. Such waves are generally classed as either pulled, where the dynamics are driven by the very tip of the front and stochastic fluctuations are high, or pushed, where cooperation in growth or dispersal results in a bulk-driven wave in which fluctuations are suppressed. These concepts have been well studied experimentally in populations where the cooperation leads to a density-dependent growth rate. By contrast, relatively little is known about experimental populations that exhibit density-dependent dispersal.
+
+Using bacteriophage T7 as a test organism, we present novel experimental measurements that demonstrate that the diffusion of phage T7, in a lawn of host E. coli, is hindered by steric interactions with host bacteria cells. The coupling between host density, phage dispersal and cell lysis caused by viral infection results in an effective density-dependent diffusion coefficient akin to cooperative behavior. Using a system of reaction-diffusion equations, we show that this effect can result in a transition from a pulled to pushed expansion. Moreover, we find that a second, independent density-dependent effect on phage dispersal spontaneously emerges as a result of the viral incubation period, during which phage is trapped inside the host unable to disperse. Additional stochastic agent-based simulations reveal that lysis time dramatically affects the rate of diversity loss in viral expansions. Taken together, our results indicate both that bacteriophage can be used as a controllable laboratory population to investigate the impact of density-dependent dispersal on evolution, and that the genetic diversity and adaptability of expanding viral populations could be much greater than is currently assumed.
 
 ## Plaque growth PDES
 
@@ -49,3 +53,13 @@ and some "bad" example data that you can run through the fixer to illustrate wha
 
 ## Stochastic simulations of heterozygosity decay
 
+The main script for simulating heterozygosity decay during phage expansions is `phage_inf_coarse_het.cpp` in the `SDE_codes` directory. This script simulates the process of phage absortion dispersal and lysis over a lawn of bacteria in 1 dimension. There is no spatial limit on the simulation as a co-moving simulation box is implemented. Requirements for use are a C++ compilter supporting the C++11 standard. The program can called from the command line as follows
+
+```bash
+g++ -o phage_sim phage_inf_coarse_het.cpp -lgsl
+./phage_sim
+```
+
+which will run the script with the default parameters. the `-lgsl' flag may or may not be necessary depending on your machines configuration. Additional flags on the compiled program can be used to specify parameters such as,`./phage_sim -a .005 -t 200`, which would run the program with alpha B0 = .005 and tau = 200. See Methods section of paper and script documentation for more details. Simulations were performed on the Cambridge Service for Data Driven Discovery (CSD3) operated by the University of Cambridge Research Computing Service, which uses the slurm scheduling manager. A sample python script to generate slurm scripts is included in the directory, `make_het_sde_slurm.py`
+
+A python notebook `Heterozygosity decay SDE analysis.ipynb` is included in the directory which goes through the analysis of heterozygosity decay rate and reproduces the relevant figures included in the paper (Fig.6 and Fig. 16). Data used in the notebook is included in the `SDE_codes/data` directory.
